@@ -1,0 +1,60 @@
+### Conversations
+GET http://localhost:4000/api/conversations
+x-api-key: changeme
+
+### Messages for a contact
+GET http://localhost:4000/api/conversations/14155552671/messages?limit=50&page=1
+x-api-key: changeme
+
+### Send message
+POST http://localhost:4000/api/conversations/14155552671/messages
+Content-Type: application/json
+x-api-key: changeme
+
+{
+  "text": "Hello from REST Client!",
+  "meta_msg_id": "meta_123"
+}
+
+### Update status
+PATCH http://localhost:4000/api/messages/wamid.1/status
+Content-Type: application/json
+x-api-key: changeme
+
+{
+  "status": "read"
+}
+
+### Webhook process (message)
+POST http://localhost:4000/api/webhook/process
+Content-Type: application/json
+x-api-key: changeme
+
+{
+  "kind": "message",
+  "data": {
+    "msg_id": "wamid.sample",
+    "meta_msg_id": "meta_sample",
+    "wa_id": "919876543210",
+    "from": "14155552671",
+    "to": "919876543210",
+    "text": "Hello via webhook!",
+    "type": "text",
+    "direction": "inbound",
+    "status": "delivered",
+    "timestamp": "{{timestamp}}"
+  }
+}
+
+### Webhook process (status)
+POST http://localhost:4000/api/webhook/process
+Content-Type: application/json
+x-api-key: changeme
+
+{
+  "kind": "status",
+  "data": {
+    "msg_id": "wamid.sample",
+    "status": "read"
+  }
+}
